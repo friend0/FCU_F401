@@ -26,6 +26,7 @@
 */
 
 #include "rc.h"
+#include "debug.h"
 
 #define AUTO_CONNECTION_CENTER  0
 
@@ -168,8 +169,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
           }
         }
         
-  
-
         // For debug purpose
         // Add channel & width info into a queue for printing
         add_queue(&que, idx, rc_t[idx]);
@@ -255,7 +254,7 @@ void GetTargetEulerAngle(EulerAngleTypeDef *euler_rc, EulerAngleTypeDef *euler_a
         t1 = RC_FULLSCALE;
     else if (t1 < -RC_FULLSCALE)
         t1 = - RC_FULLSCALE;
-    euler_rc->thy = -t1 * max_roll_rad / RC_FULLSCALE;
+    euler_rc->thy = t1 * max_roll_rad / RC_FULLSCALE;
 
     t1 = gRUD;
     if (t1 > RC_FULLSCALE)

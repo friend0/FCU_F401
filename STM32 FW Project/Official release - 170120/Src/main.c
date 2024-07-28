@@ -500,14 +500,14 @@ int32_t BytesToWrite;
       #endif
           
       #ifdef REMOCON_PWM
-          if ( (gTHR == 0) && (gELE < - RC_CAL_THRESHOLD) && (gAIL > RC_CAL_THRESHOLD) && (gRUD < - RC_CAL_THRESHOLD))
+          if ( (gTHR == 0) && (gELE < - RC_CAL_THRESHOLD) && (gAIL < -RC_CAL_THRESHOLD) && (gRUD > RC_CAL_THRESHOLD))
           {
             rc_cal_flag = 1;
             BSP_LED_On(LED1);
           }
            
       
-          if ( (gTHR == 0) && (gELE < - RC_CAL_THRESHOLD) && (gAIL < - RC_CAL_THRESHOLD) && (gRUD > RC_CAL_THRESHOLD))
+          if ( (gTHR == 0) && (gELE < - RC_CAL_THRESHOLD) && (gAIL > RC_CAL_THRESHOLD) && (gRUD < -RC_CAL_THRESHOLD))
           {
             rc_enable_motor = 1;
             fly_ready = 1;
@@ -546,10 +546,10 @@ int32_t BytesToWrite;
       
     /* Added for debug on UART*/
     /* Remocon ELE, AIL, RUD, THR, AHRS Euler angle x and y axis, Remocon Euler angle x and y axis */
-    //PRINTF("%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\n", gELE, gAIL, gRUD, gTHR, euler_ahrs.thx * 57.3f, euler_ahrs.thy * 57.3f, euler_rc.thx * 57.3f, euler_rc.thy * 57.3f);
+    PRINTF("%f\t%f\n\r", euler_rc.thx * 57.3f, euler_rc.thy * 57.3f);
     /* Remocon ELE, AIL, RUD, THR, Motor1_pwm, AHRS Euler angle x and y axis */
     //PRINTF("%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\n", gELE, gAIL, gRUD, gTHR, motor_pwm.motor1_pwm, euler_ahrs.thx * 57.3f, euler_ahrs.thy * 57.3f, euler_rc.thx * 57.3f, euler_rc.thy * 57.3f);
-    //PRINTF("%d\t%d\t%d\t%d\n", gELE, gAIL, gRUD, gTHR);
+    PRINTF("%d\t%d\t%d\t%d\n\r", gAIL, gELE, gTHR, gRUD);
     /* Remocon THR, Acc and Gyro FIFO data x and y axis, AHRS Euler angle x and y axis, Remocon Euler angle x and y axis*/
     //PRINTF("%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n", gTHR, acc_ahrs.AXIS_X, acc_ahrs.AXIS_Y, gyro_ahrs.AXIS_X, gyro_ahrs.AXIS_Y, euler_ahrs.thx * 57.3f, euler_ahrs.thy * 57.3f, euler_rc.thx * 57.3f, euler_rc.thy * 57.3f);
     /* MEMS Accelerometer RAW data */
